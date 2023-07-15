@@ -12,11 +12,6 @@
     <script>Codebase.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-maxlength', 'jq-select2', 'jq-rangeslider', 'jq-masked-inputs', 'jq-pw-strength']);</script>
 @endsection
 @section('form')
-{{--    @if($errors->any())--}}
-{{--        @foreach($errors->all() as $error)--}}
-{{--            <div class="text-danger">{{$error}}</div>--}}
-{{--        @endforeach--}}
-{{--    @endif--}}
     <div class="mb-4">
         <label class="form-label">Title</label>
         <input type="text" class="form-control @error('title') is-invalid @enderror" value="{{old('title')}}" name="title" placeholder="JujukDate App">
@@ -27,7 +22,7 @@
 
     <div class="mb-4">
         <label class="form-label">Description</label>
-        <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="4" placeholder="Some words about Project...">{{old('description')}}</textarea>
+        <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="4" placeholder="if Jujuk/Poppi nice, swipe left else right...">{{old('description')}}</textarea>
         @error('description')
             <div class="invalid-feedback animated fadeIn">{{ $message }}</div>
         @enderror

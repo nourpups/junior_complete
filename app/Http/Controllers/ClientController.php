@@ -8,11 +8,18 @@ use App\Http\Requests\UpdateClientRequest;
 
 class ClientController extends Controller
 {
-    /**
+
+   public function __construct()
+   {
+      $this->authorizeResource(Client::class, 'client');
+   }
+
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
+
         session()->put('previous_page', url()->full());
 
         $clients = Client::with('projects')->latest()->paginate(12);

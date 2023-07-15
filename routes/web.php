@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,15 +17,15 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::view('/', 'dashboard')->name('dashboard');
+Auth::routes(['verify' => true]);
 
-Route::resources([
-    'users' => UserController::class,
-    'clients' => ClientController::class,
-    'projects' => ProjectController::class,
-    'tasks' => TaskController::class,
-]);
+Route::group(['middleware' => ['auth', 'verified']], function (){
+    Route::view('/', 'dashboard')->name('dashboard');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resources([
+        'users' => UserController::class,
+        'clients' => ClientController::class,
+        'projects' => ProjectController::class,
+        'tasks' => TaskController::class,
+    ]);
+});

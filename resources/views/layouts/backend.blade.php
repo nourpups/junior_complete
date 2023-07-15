@@ -96,7 +96,7 @@
 
         <!-- User Info -->
         <a class="link-fx text-body-color-dark fw-semibold fs-sm" href="javascript:void(0)">
-          John Smith
+            {{auth()->user()->name}}
         </a>
         <!-- END User Info -->
 
@@ -180,16 +180,10 @@
               </a>
               <ul class="list-inline mt-3 mb-0">
                 <li class="list-inline-item">
-                  <a class="link-fx text-dual fs-sm fw-semibold text-uppercase" href="javascript:void(0)">J. Smith</a>
+                  <a class="link-fx text-dual fs-sm fw-semibold text-uppercase" href="javascript:void(0)">{{auth()->user()->name}}</a>
                 </li>
                 <li class="list-inline-item">
-                  <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                  <a class="link-fx text-dual" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
-                    <i class="fa fa-burn"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a class="link-fx text-dual" href="javascript:void(0)">
+                  <a class="link-fx text-dual" onclick="document.getElementById('logout-form').submit()">
                     <i class="fa fa-sign-out-alt"></i>
                   </a>
                 </li>
@@ -208,36 +202,32 @@
                   <span class="nav-main-link-name">Dashboard</span>
                 </a>
               </li>
+                @can('access_client')
+                    <li class="nav-main-item">
+                      <a class="nav-main-link{{ request()->routeIs('clients.*') ? ' active' : '' }}" href="{{route('clients.index')}}">
+                        <i class="nav-main-link-icon fa fa-user-tag"></i>
+                        <span class="nav-main-link-name">Clients</span>
+                      </a>
+                  </li>
+                @endcan
+               @can('access_users')
                 <li class="nav-main-item">
-                <a class="nav-main-link{{ request()->routeIs('clients.*') ? ' active' : '' }}" href="{{route('clients.index')}}">
-                  <i class="nav-main-link-icon fa fa-house-user"></i>
-                  <span class="nav-main-link-name">Clients</span>
-                </a>
-              </li>
-                <li class="nav-main-item">
-                <a class="nav-main-link{{ request()->routeIs('users.*') ? ' active' : '' }}" href="{{route('users.index')}}">
-                  <i class="nav-main-link-icon fa fa-house-user"></i>
-                  <span class="nav-main-link-name">Users</span>
-                </a>
-              </li>
+                  <a class="nav-main-link{{ request()->routeIs('users.*') ? ' active' : '' }}" href="{{route('users.index')}}">
+                    <i class="nav-main-link-icon fa fa-users-gear"></i>
+                    <span class="nav-main-link-name">Users</span>
+                  </a>
+                </li>
+               @endcan
                 <li class="nav-main-item">
                 <a class="nav-main-link{{ request()->routeIs('projects.*') ? ' active' : '' }}" href="{{route('projects.index')}}">
-                  <i class="nav-main-link-icon fa fa-house-user"></i>
+                  <i class="nav-main-link-icon fa-solid fa-diagram-project"></i>
                   <span class="nav-main-link-name">Projects</span>
                 </a>
               </li>
                 <li class="nav-main-item">
                 <a class="nav-main-link{{ request()->routeIs('tasks.*') ? ' active' : '' }}" href="{{route('tasks.index')}}">
-                  <i class="nav-main-link-icon fa fa-house-user"></i>
+                  <i class="nav-main-link-icon fa fa-tasks"></i>
                   <span class="nav-main-link-name">Tasks</span>
-                </a>
-              </li>
-
-              <li class="nav-main-heading">More</li>
-              <li class="nav-main-item">
-                <a class="nav-main-link" href="/">
-                  <i class="nav-main-link-icon fa fa-globe"></i>
-                  <span class="nav-main-link-name">Landing</span>
                 </a>
               </li>
             </ul>
@@ -262,7 +252,10 @@
             <i class="fa fa-fw fa-bars"></i>
           </button>
           <!-- END Toggle Sidebar -->
-
+                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                <button class="btn btn-sm btn-alt-secondary text-dual" data-toggle="layout" data-action="dark_mode_toggle">
+                    <i class="fa fa-burn"></i>
+                </button>
           <!-- Open Search Section -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
           <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="layout" data-action="header_search_on">
@@ -275,50 +268,29 @@
         <!-- Right Section -->
         <div class="space-x-1">
           <!-- User Dropdown -->
+            @auth
           <div class="dropdown d-inline-block">
             <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-user d-sm-none"></i>
-              <span class="d-none d-sm-inline-block fw-semibold">J. Smith</span>
+              <span class="d-none d-sm-inline-block fw-semibold">{{auth()->user()->name}}</span>
               <i class="fa fa-angle-down opacity-50 ms-1"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
               <div class="px-2 py-3 bg-body-light rounded-top">
                 <h5 class="h6 text-center mb-0">
-                  John Smith
+                    {{auth()->user()->name}}
                 </h5>
               </div>
               <div class="p-2">
-                <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="javascript:void(0)">
-                  <span>Profile</span>
-                  <i class="fa fa-fw fa-user opacity-25"></i>
-                </a>
-                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                  <span>Inbox</span>
-                  <i class="fa fa-fw fa-envelope-open opacity-25"></i>
-                </a>
-                <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="javascript:void(0)">
-                  <span>Invoices</span>
-                  <i class="fa fa-fw fa-file opacity-25"></i>
-                </a>
-                <div class="dropdown-divider"></div>
-
-                <!-- Toggle Side Overlay -->
-                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="javascript:void(0)" data-toggle="layout" data-action="side_overlay_toggle">
-                  <span>Settings</span>
-                  <i class="fa fa-fw fa-wrench opacity-25"></i>
-                </a>
-                <!-- END Side Overlay -->
-
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="javascript:void(0)">
+                  <form id="logout-form" action="{{route('logout')}}" method="POST">@csrf</form>
+                <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" style="cursor: pointer" onclick="document.getElementById('logout-form').submit()">
                   <span>Sign Out</span>
                   <i class="fa fa-fw fa-sign-out-alt opacity-25"></i>
                 </a>
               </div>
             </div>
           </div>
-          <!-- END User Dropdown -->
+            @endauth
 
           <!-- Toggle Side Overlay -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->

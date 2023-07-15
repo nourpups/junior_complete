@@ -15,6 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
+       $this->authorize('access_user');
+
         session(['previous_page' => url()->full()]);
         $users = User::latest()->paginate(12);
 
@@ -34,7 +36,8 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        User::create($user = $request->validated());
+        $user = User::create($request->validated());
+        $user->assignRole('User');
 
         return redirect(session('previous_page'))->with('flash', [
             'class' => 'success',
