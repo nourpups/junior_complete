@@ -1,4 +1,4 @@
-@extends('layouts.tables')
+@extends('layouts.tables', ['entity'])
 
 @section('table')
 
@@ -12,7 +12,9 @@
             <th>Project</th>
             <th style="width:11%;">Deadline</th>
             <th>Status</th>
-            <th style="width: 10%;">Actions</th>
+            @if(auth()->user()->can('update_project') && auth()->user()->can('delete_project'))
+                <th style="width: 10%;">Actions</th>
+            @endif
         </tr>
         </thead>
         <tbody>
@@ -25,18 +27,20 @@
                 <td class="text-muted"> {{ $task->project->title  }} </td>
                 <td class="text-muted"> {{ $task->deadline  }} </td>
                 <td class="text-muted" style="font-size: 0.8rem"> {!! $task->status->getLabelHTML()  !!} </td>
-                <td>
-                    <a href="{{ route('tasks.edit', $task) }}" class="btn btn-alt-warning mb-1" style="font-size: 0.75rem">
-                        <i class="fa fa-pencil"></i> Edit Task
-                    </a>
+                @if(auth()->user()->can('update_project') && auth()->user()->can('delete_project'))
+                    <td>
+                        <a href="{{ route('tasks.edit', $task) }}" class="btn btn-alt-warning mb-1" style="font-size: 0.75rem">
+                            <i class="fa fa-pencil"></i> Edit Task
+                        </a>
 
-                    <form action="{{ route('tasks.destroy', $task) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
+                        <form action="{{ route('tasks.destroy', $task) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
 
-                        <button class="btn btn-alt-danger" style="font-size: 0.75rem"> <i class="fa fa-trash"></i> Delete Task </button>
-                    </form>
-                </td>
+                            <button class="btn btn-alt-danger" style="font-size: 0.75rem"> <i class="fa fa-trash"></i> Delete Task </button>
+                        </form>
+                    </td>
+                @endif
             </tr>
         @empty
             <tr>

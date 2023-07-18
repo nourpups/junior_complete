@@ -22,8 +22,16 @@ class RoleSeeder extends Seeder
 //      |------------------------------------------------------------------------|
 
         $role = Role::create(['name' => 'User']);
-//        foreach($permissions as $permission) {
-//            $role->givePermissionTo($permission);
-//        }
+
+       $userPermissionEntities = ['project', 'task'];
+       $permissionActions = ['access', 'show'];
+
+       foreach($userPermissionEntities as $userPermissionEntity)
+       {
+          foreach ($permissionActions as $permissionAction)
+          {
+             $role->givePermissionTo($permissionAction.'_'.$userPermissionEntity);
+          }
+       }
     }
 }

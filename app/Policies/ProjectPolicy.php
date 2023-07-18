@@ -13,7 +13,7 @@ class ProjectPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('access_project');
     }
 
     /**
@@ -21,7 +21,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project): bool
     {
-        //
+       return $user->hasPermissionTo('show_project');
     }
 
     /**
@@ -29,7 +29,7 @@ class ProjectPolicy
      */
     public function create(User $user): bool
     {
-        //
+       return $user->hasPermissionTo('create_project');
     }
 
     /**
@@ -37,7 +37,7 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project): bool
     {
-        //
+       return $user->hasPermissionTo('update_project');
     }
 
     /**
@@ -45,7 +45,7 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project): bool
     {
-        //
+       return $user->hasPermissionTo('delete_project');
     }
 
     /**

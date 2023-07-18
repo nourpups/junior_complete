@@ -11,14 +11,24 @@ use App\Models\User;
 
 class TaskController extends Controller
 {
-    /**
+   public function __construct()
+   {
+      $this->authorizeResource(Task::class, 'tasks');
+   }
+
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        session(['previous_page' => url()->full()]);
+       session(['previous_page' => url()->full()]);
 
-        $tasks = Task::with(['user', 'project'])->latest()->paginate(12);
+       $tasks = Task::where('user_id', auth()->id())->with(['user', 'project'])->latest()->paginate(12);
+        
+       if(auth()->user()->hasRole('Super Admin'))
+        {
+            $tasks = Task::with(['user', 'project'])->latest()->paginate(12);
+        }
 
         return view('tasks.index', compact('tasks'));
     }

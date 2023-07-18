@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Permission;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -10,10 +11,21 @@ class ExampleTest extends TestCase
     /**
      * A basic test example.
      */
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_permissions_creating(): void
     {
-        $response = $this->get('/');
+       $permissionEntities = ['user', 'client', 'project', 'task'];
+       $permissionActions = ['access', 'show', 'create', 'update', 'delete'];
 
-        $response->assertStatus(200);
+       foreach($permissionEntities as $permissionEntity)
+       {
+          foreach ($permissionActions as $key => $permissionAction)
+          {
+             $permissions = Permission::create(['name' =>  $permissionAction.'_'.$permissionEntity]);
+          }
+       }
+
+       $this->assertDatabaseHas('permissions', [
+          'name' => 'access_user'
+       ]);
     }
 }

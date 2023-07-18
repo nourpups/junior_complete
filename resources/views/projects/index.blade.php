@@ -12,7 +12,9 @@
             <th>Client</th>
             <th style="width:11%;">Deadline</th>
             <th>Status</th>
-            <th style="width: 10%;">Actions</th>
+            @if(auth()->user()->can('update_project') && auth()->user()->can('delete_project'))
+                <th style="width: 10%;">Actions</th>
+            @endif
         </tr>
         </thead>
         <tbody>
@@ -25,18 +27,19 @@
                 <td class="text-muted"> {{ $project->client->name  }} </td>
                 <td class="text-muted"> {{ $project->deadline  }} </td>
                 <td class="text-muted" style="font-size: 0.8rem"> {!! $project->status->getLabelHTML()  !!} </td>
-                <td>
-                    <a href="{{ route('projects.edit', $project) }}" class="btn btn-alt-warning mb-1" style="font-size: 0.75rem">
-                        <i class="fa fa-pencil"></i> Edit Project
-                    </a>
+                @if(auth()->user()->can('update_project') && auth()->user()->can('delete_project'))
+                    <td>
+                        <a href="{{ route('projects.edit', $project) }}" class="btn btn-alt-warning mb-1" style="font-size: 0.75rem">
+                            <i class="fa fa-pencil"></i> Edit Project
+                        </a>
+                        <form action="{{ route('projects.destroy', $project) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
 
-                    <form action="{{ route('projects.destroy', $project) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-
-                        <button class="btn btn-alt-danger" style="font-size: 0.75rem"> <i class="fa fa-trash"></i> Delete Project </button>
-                    </form>
-                </td>
+                            <button class="btn btn-alt-danger" style="font-size: 0.75rem"> <i class="fa fa-trash"></i> Delete Project </button>
+                        </form>
+                    </td>
+                @endif
             </tr>
         @empty
             <tr>

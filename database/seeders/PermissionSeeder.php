@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
 class PermissionSeeder extends Seeder
@@ -16,36 +18,15 @@ class PermissionSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $permissions = [
-            'access_client',
-            'show_client',
-            'create_client',
-            'update_client',
-            'delete_client',
+        $permissionEntities = ['user', 'client', 'project', 'task'];
+        $permissionActions = ['access', 'show', 'create', 'update', 'delete'];
 
-            'access_user',
-            'show_user',
-            'create_user',
-            'update_user',
-            'delete_user',
-
-            'access_project',
-            'show_project',
-            'create_project',
-            'update_project',
-            'delete_project',
-
-            'access_task',
-            'show_task',
-            'create_task',
-            'update_task',
-            'delete_task',
-
-        ];
-
-        foreach($permissions as $permission)
+        foreach($permissionEntities as $permissionEntity)
         {
-            Permission::create(['name' => $permission]);
+            foreach ($permissionActions as $permissionAction)
+            {
+               Permission::create(['name' =>  $permissionAction.'_'.$permissionEntity]);
+            }
         }
 
     }

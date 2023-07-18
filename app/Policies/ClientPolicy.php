@@ -21,7 +21,7 @@ class ClientPolicy
      */
     public function view(User $user, Client $client): bool
     {
-        //
+       return $user->hasPermissionTo('show_client');
     }
 
     /**
@@ -29,7 +29,7 @@ class ClientPolicy
      */
     public function create(User $user): bool
     {
-        //
+       return $user->hasPermissionTo('create_client');
     }
 
     /**
@@ -37,7 +37,7 @@ class ClientPolicy
      */
     public function update(User $user, Client $client): bool
     {
-        //
+       return $user->hasPermissionTo('update_client');
     }
 
     /**
@@ -45,7 +45,7 @@ class ClientPolicy
      */
     public function delete(User $user, Client $client): bool
     {
-        //
+       return $user->hasPermissionTo('delete_client');
     }
 
     /**

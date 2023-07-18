@@ -21,7 +21,7 @@ class UpdateProjectRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+       return [
             'user_id' => 'required',
             'client_id' => 'required',
             'title' => 'required|max:255',

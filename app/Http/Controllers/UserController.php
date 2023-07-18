@@ -10,14 +10,19 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
+
+   public function __construct()
+   {
+      $this->authorizeResource(User::class, 'user');
+   }
+
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       $this->authorize('access_user');
-
         session(['previous_page' => url()->full()]);
+
         $users = User::latest()->paginate(12);
 
         return view('users.index', compact('users'));

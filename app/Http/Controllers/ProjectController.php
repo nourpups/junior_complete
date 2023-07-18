@@ -11,14 +11,24 @@ use App\Models\User;
 
 class ProjectController extends Controller
 {
-    /**
+   public function __construct()
+   {
+      $this->authorizeResource(Project::class, 'project');
+   }
+
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
         session(['previous_page' => url()->full()]);
 
-        $projects = Project::with(['user', 'client'])->latest()->paginate(12);
+        $projects = Project::where('user_id', auth()->id())->with(['user', 'client'])->latest()->paginate(12);
+
+       if(auth()->user()->hasRole('Super Admin'))
+       {
+          $projects = Project::with(['user', 'client'])->latest()->paginate(12);
+       }
 
         return view('projects.index', compact('projects'));
     }
