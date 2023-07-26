@@ -1,4 +1,4 @@
-@extends('layouts.tables', ['entity'])
+@extends('layouts.tables.resource-controller', ['entity' => 'tasks'])
 
 @section('table')
 

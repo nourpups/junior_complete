@@ -1,4 +1,4 @@
-@extends('layouts.forms.create', ['entity' => 'tasks'])
+@extends('layouts.forms.resource-controller.create', ['entity' => 'tasks'])
 
 @section('css')
     <link rel="stylesheet" href="{{asset('js/plugins/flatpickr/flatpickr.min.css')}}">

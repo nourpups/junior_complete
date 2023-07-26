@@ -21,13 +21,13 @@
                 </td>
                 <td>
                     <a href="{{ route('roles.edit', $role) }}" class="btn btn-alt-warning mb-1" style="font-size: 0.75rem">
-                        <i class="fa fa-pencil"></i> Edit Roles
+                        <i class="fa fa-pencil"></i> Edit Role
                     </a>
                     <form action="{{ route('roles.destroy', $role) }}" method="POST">
                         @csrf
                         @method('DELETE')
 
-                        <button class="btn btn-alt-danger" style="font-size: 0.75rem"> <i class="fa fa-trash"></i> Delete Roles </button>
+                        <button class="btn btn-alt-danger" style="font-size: 0.75rem"> <i class="fa fa-trash"></i> Delete Role </button>
                     </form>
                 </td>
             </tr>

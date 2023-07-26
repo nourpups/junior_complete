@@ -15,15 +15,6 @@ class PermissionPolicy
     {
         return $user->hasPermissionTo('access_permission');
     }
-
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Permission $permission): bool
-    {
-       return $user->hasPermissionTo('show_permission');
-    }
-
     /**
      * Determine whether the user can create models.
      */
@@ -46,21 +37,5 @@ class PermissionPolicy
     public function delete(User $user, Permission $permission): bool
     {
        return $user->hasPermissionTo('delete_permission');
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Permission $permission): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Permission $permission): bool
-    {
-        //
     }
 }

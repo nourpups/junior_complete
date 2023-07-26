@@ -1,4 +1,4 @@
-@extends('layouts.tables')
+@extends('layouts.tables.resource-controller', ['entity' => 'projects'])
 
 @section('table')
 
@@ -23,7 +23,11 @@
                 <td class="text-center">{{ $project->id }}</td>
                 <td class="fw-semibold"> {{ $project->title }} </td>
                 <td class="d-none d-sm-table-cell"> {{$project->description}} </td>
-                <td class="text-muted"> {{ $project->user->name  }} </td>
+                <td class="text-muted">
+                    @foreach($project->users as $user)
+                        {{ $user->name  }}
+                    @endforeach
+                </td>
                 <td class="text-muted"> {{ $project->client->name  }} </td>
                 <td class="text-muted"> {{ $project->deadline  }} </td>
                 <td class="text-muted" style="font-size: 0.8rem"> {!! $project->status->getLabelHTML()  !!} </td>

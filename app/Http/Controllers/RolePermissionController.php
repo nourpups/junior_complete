@@ -7,11 +7,16 @@ use App\Http\Requests\AddRolePermissionRequest;
 use App\Http\Requests\StoreRolePermissionRequest;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use Illuminate\Http\Request;
 
 class RolePermissionController extends Controller
 {
-    /**
+
+   public function __construct()
+   {
+      $this->authorizeResource(Permission::class, 'permission');
+   }
+
+   /**
      * Display a listing of the resource.
      */
     public function index(Role $role)

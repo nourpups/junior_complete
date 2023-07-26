@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('project_id')->constrained();
             $table->string('deadline');
-            $table->string('status')->default('open');
+            $table->string('status');
 
             $table->softDeletes();
             $table->timestamps();

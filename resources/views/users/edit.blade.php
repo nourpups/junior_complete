@@ -1,4 +1,4 @@
-@extends('layouts.forms.edit', ['entity' => 'users', 'title' => $user->name])
+@extends('layouts.forms.resource-controller.edit', ['entity' => 'users', 'title' => $user->name])
 
 @section('form')
     @if ($errors->any())

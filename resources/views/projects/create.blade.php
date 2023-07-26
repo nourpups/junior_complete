@@ -1,16 +1,18 @@
-@extends('layouts.forms.create', ['entity' => 'projects'])
+@extends('layouts.forms.resource-controller.create', ['entity' => 'projects'])
 
 @section('css')
     <link rel="stylesheet" href="{{asset('js/plugins/flatpickr/flatpickr.min.css')}}">
     <link rel="stylesheet" href="{{asset('js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}">
+    <link rel="stylesheet" href="{{asset('js/plugins/select2/css/select2.min.css')}}">
 @endsection
-
 @section('js')
     <script src="{{asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('js/plugins/flatpickr/flatpickr.min.js')}}"></script>
+    <script src="{{asset('js/plugins/select2/js/select2.full.min.js')}}"></script>
 
-    <script>Codebase.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-maxlength', 'jq-select2', 'jq-rangeslider', 'jq-masked-inputs', 'jq-pw-strength']);</script>
+    <script>Codebase.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-select2']);</script>
 @endsection
+
 @section('form')
     <div class="mb-4">
         <label class="form-label">Title</label>
@@ -29,14 +31,21 @@
     </div>
 
     <div class="mb-4">
-        <label class="form-label">User</label>
-        <select class="form-select @error('user_id') is-invalid @enderror" name="user_id">
+        <label class="form-label">Users</label>
+        <select class="js-select2 form-select @error('user_ids') is-invalid @enderror " name="user_ids[]" style="width: 100%;" data-container="#modal-block-select2" data-placeholder="Choose many.." multiple>
+            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
             @foreach($users as $user)
-                <option value="{{old('user_id', $user->id)}}" @selected(old('user_id') == $user->id)> {{$user->name}} </option>
+                <option value="{{$user->id}}"
+                    @if(old('user_ids'))
+                        {{ in_array($user->id, old('user_ids')) ? 'selected' : '' }}
+                    @endif
+                >
+                {{$user->name}}
+                </option>
             @endforeach
         </select>
-        @error('user_id')
-            <div class="invalid-feedback animated fadeIn">{{ $message }}</div>
+        @error('user_ids')
+        <div class="invalid-feedback animated fadeIn">{{ $message }}</div>
         @enderror
     </div>
 

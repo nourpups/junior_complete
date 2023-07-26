@@ -16,7 +16,10 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
 
+        Project::factory(5)->create()->each(function ($project) {
+           $user_ids = User::inRandomOrder()->take(rand(1,3))->pluck('id')->toArray();
+           $project->users()->attach($user_ids);
+        });
 
-        Project::factory(3)->create();
     }
 }

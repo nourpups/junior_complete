@@ -24,7 +24,6 @@ class TaskFactory extends Factory
 
         $user = User::inRandomOrder()->first();
         $project = Project::inRandomOrder()->first();
-
         return [
             'user_id' => $user->id,
             'project_id' => $project->id,

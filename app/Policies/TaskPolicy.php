@@ -37,7 +37,7 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): bool
     {
-       return $user->hasPermissionTo('update_task') && $task->user_id == $user->id;
+       return $user->hasPermissionTo('update_task'); //&& $task->user_id == $user->id
     }
 
     /**
@@ -45,7 +45,7 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
-        //
+       return $user->hasPermissionTo('update_task'); //&& $task->user_id == $user->id;
     }
 
     /**

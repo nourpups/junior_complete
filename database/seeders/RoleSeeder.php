@@ -14,7 +14,6 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = Permission::all()->pluck('name');
 
 //      |-----------------------NOTICE-------------------------------------------|
 //      |  gets all permissions via Gate::before rule; check AuthServiceProvider |
@@ -24,7 +23,7 @@ class RoleSeeder extends Seeder
         $role = Role::create(['name' => 'User']);
 
        $userPermissionEntities = ['project', 'task'];
-       $permissionActions = ['access', 'show'];
+       $permissionActions = ['access'];
 
        foreach($userPermissionEntities as $userPermissionEntity)
        {

@@ -18,7 +18,7 @@ class PermissionSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $permissionEntities = ['user', 'client', 'project', 'task'];
+        $permissionEntities = ['user', 'client', 'project', 'task', 'role', 'permission', 'role_permission'];
         $permissionActions = ['access', 'show', 'create', 'update', 'delete'];
 
         foreach($permissionEntities as $permissionEntity)

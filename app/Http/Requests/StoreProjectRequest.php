@@ -22,7 +22,7 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
+            'user_ids' => 'required|array',
             'client_id' => 'required',
             'title' => 'required|max:255',
             'description' => 'required',

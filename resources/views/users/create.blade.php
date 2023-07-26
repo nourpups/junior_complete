@@ -1,4 +1,4 @@
-@extends('layouts.forms.create', ['entity' => 'users'])
+@extends('layouts.forms.resource-controller.create', ['entity' => 'users'])
 
 @section('form')
 

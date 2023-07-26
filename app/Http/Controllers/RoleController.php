@@ -8,11 +8,18 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    /**
+
+   public function __construct()
+   {
+      $this->authorizeResource(Role::class, 'role');
+   }
+
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
+
        session(['index_page' => url()->full()]);
        session(['parent_index_page' => url()->full()]);
 
@@ -36,18 +43,10 @@ class RoleController extends Controller
     {
        $role = Role::create($request->validated());
 
-       return redirect(session('index_page'))->with('message', [
+       return redirect(session('index_page'))->with('flash', [
              'class' => 'success',
-             'message' => "Permission «$role[name]» was created successfully"
+             'message' => "Role «$role[name]» was created successfully"
        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Role $role)
-    {
-        //
     }
 
     /**
@@ -65,9 +64,9 @@ class RoleController extends Controller
     {
         $role->update($role = $request->validated());
 
-       return redirect(session('index_page'))->with('message', [
+       return redirect(session('index_page'))->with('flash', [
              'class' => 'success',
-             'message' => "Permission «$role[name]» was created successfully"
+             'message' => "Role «$role[name]» was updated successfully"
        ]);
     }
 
@@ -76,11 +75,11 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
+       $role->delete();
 
-       return redirect(session('index_page'))->with('message', [
-             'class' => 'success',
-             'message' => "Permission «$role[name]» was created successfully"
+       return redirect(session('index_page'))->with('flash', [
+             'class' => 'danger',
+             'message' => "Role «$role[name]» was deleted"
        ]);
     }
 }

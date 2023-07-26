@@ -1,4 +1,4 @@
-@extends('layouts.forms.edit', ['entity' => 'clients', 'title' => $client->name])
+@extends('layouts.forms.resource-controller.edit', ['entity' => 'clients', 'title' => $client->name])
 
 @section('form')
 

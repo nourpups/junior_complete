@@ -10,7 +10,7 @@ class PermissionController extends Controller
 {
    public function __construct()
    {
-      $this->authorizeResource(Permission::class, 'permissions');
+      $this->authorizeResource(Permission::class, 'permission');
    }
 
    /**
@@ -40,7 +40,7 @@ class PermissionController extends Controller
     {
       $permission = Permission::create($request->validated());
 
-     return redirect(session('index_page'))->with('message', [
+     return redirect(session('index_page'))->with('flash', [
            'class' => 'success',
            'message' => "Permission «$permission[name]» was created successfully"
      ]);

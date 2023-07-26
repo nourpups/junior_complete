@@ -1,4 +1,4 @@
-@extends('layouts.tables')
+@extends('layouts.tables.resource-controller', ['entity' => 'clients'])
 
 
 

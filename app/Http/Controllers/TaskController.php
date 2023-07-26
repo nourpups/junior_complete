@@ -13,7 +13,7 @@ class TaskController extends Controller
 {
    public function __construct()
    {
-      $this->authorizeResource(Task::class, 'tasks');
+      $this->authorizeResource(Task::class, 'task');
    }
 
    /**
@@ -23,11 +23,12 @@ class TaskController extends Controller
     {
        session(['previous_page' => url()->full()]);
 
-       $tasks = Task::where('user_id', auth()->id())->with(['user', 'project'])->latest()->paginate(12);
-        
+       $tasks = auth()->user()->tasks()->with(['user', 'project'])->latest()->paginate(12);
+
        if(auth()->user()->hasRole('Super Admin'))
         {
             $tasks = Task::with(['user', 'project'])->latest()->paginate(12);
+
         }
 
         return view('tasks.index', compact('tasks'));

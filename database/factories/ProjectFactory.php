@@ -22,11 +22,9 @@ class ProjectFactory extends Factory
         $statusArray  = [Status::IN_PROGRESS, Status::COMPLETED, Status::ABANDONED];
         $status = $statusArray[array_rand($statusArray)];
 
-        $user = User::inRandomOrder()->first();
         $client = Client::inRandomOrder()->first();
 
         return [
-            'user_id' => $user->id,
             'client_id' => $client->id,
             'title' => fake()->sentence(4),
             'description' => fake()->sentence(),

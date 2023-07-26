@@ -1,4 +1,4 @@
-@extends('layouts.forms.edit', ['entity' => 'tasks', 'title' => $task->title])
+@extends('layouts.forms.resource-controller.edit', ['entity' => 'tasks', 'title' => $task->title])
 
 @section('css')
     <link rel="stylesheet" href="{{asset('js/plugins/flatpickr/flatpickr.min.css')}}">

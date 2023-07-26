@@ -2,18 +2,19 @@
 
 namespace App\Policies;
 
-use App\Models\Client;
+use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class ClientPolicy
+class RolePermissionPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('access_client');
+        return $user->hasPermissionTo('access_role_permission');
+
     }
 
     /**
@@ -21,22 +22,22 @@ class ClientPolicy
      */
     public function create(User $user): bool
     {
-       return $user->hasPermissionTo('create_client');
+        return $user->hasPermissionTo('create_role_permission');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Client $client): bool
+    public function update(User $user, Permission $permission): bool
     {
-       return $user->hasPermissionTo('update_client');
+       return $user->hasPermissionTo('update_role_permission');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Client $client): bool
+    public function delete(User $user, Permission $permission): bool
     {
-       return $user->hasPermissionTo('delete_client');
+       return $user->hasPermissionTo('delete_role_permission');
     }
 }

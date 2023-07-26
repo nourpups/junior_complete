@@ -1,6 +1,6 @@
 @extends('layouts.backend')
 
-@section('title', str($entity)->ucfirst().' Table')
+@section('title', str($entity)->ucfirst().' Table') {{-- $entity is the plural name of the model (projects, tasks) --}}
 
 @section('content')
 
@@ -10,11 +10,13 @@
                 <h3 class="block-title">
                     {{ str($entity)->ucfirst() }} Table
                 </h3>
-                <a href="{{ route($entity.'.create') }}"
-                   class="btn btn-alt-primary d-inline-block">
-                    <i class="fa fa-plus"></i>
-                    Create {{ str($entity)->ucfirst()->singular() }}
-                </a>
+                @can('create_'. str($entity)->singular()) {{-- e.g create_project, create_task --}}
+                    <a href="{{ route($entity.'.create') }}" {{-- e.g projects.create, tasks.create --}}
+                       class="btn btn-alt-primary d-inline-block">
+                        <i class="fa fa-plus"></i>
+                        Create {{ str($entity)->ucfirst()->singular() }}
+                    </a>
+                @endcan
             </div>
             <div class="block-content block-content-full">
 
