@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        session(['previous_page' => url()->full()]);
+        session(['index_page' => url()->full()]);
 
         $users = User::latest()->paginate(12);
 
@@ -44,7 +44,7 @@ class UserController extends Controller
         $user = User::create($request->validated());
         $user->assignRole('User');
 
-        return redirect(session('previous_page'))->with('flash', [
+        return redirect(session('index_page'))->with('flash', [
             'class' => 'success',
             'message' => "User $user[name] was created successfully"
         ]);
@@ -71,7 +71,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect(session('previous_page'))->with('flash', [
+        return redirect(session('index_page'))->with('flash', [
             'class' => 'success',
             'message' => "User $user[name] was updated successfully"
         ]);
@@ -85,7 +85,7 @@ class UserController extends Controller
         $name = $user->name;
         $user->delete();
 
-        return redirect(session('previous_page'))->with('flash', [
+        return redirect(session('index_page'))->with('flash', [
             'class' => 'danger',
             'message' => "User $user[name] was deleted"
         ]);

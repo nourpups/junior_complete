@@ -20,7 +20,7 @@ class ClientController extends Controller
     public function index()
     {
 
-        session()->put('previous_page', url()->full());
+        session()->put('index_page', url()->full());
 
         $clients = Client::with('projects')->latest()->paginate(12);
 
@@ -42,7 +42,7 @@ class ClientController extends Controller
     {
        Client::create($client = $request->validated());
 
-        return redirect(session('previous_page'))->with('flash', [
+        return redirect(session('index_page'))->with('flash', [
             'class' => 'success',
             'message' => "Client $client[name] was created successfully",
         ]);
@@ -63,7 +63,7 @@ class ClientController extends Controller
     {
         $client->update($request->validated());
 
-        return redirect(session('previous_page'))->with('flash', [
+        return redirect(session('index_page'))->with('flash', [
             'class' => 'success',
             'message' => "Client $client[name] was updated successfully"
         ]);
@@ -78,7 +78,7 @@ class ClientController extends Controller
 
         $client->delete();
 
-        return redirect(session('previous_page'))->with('flash', [
+        return redirect(session('index_page'))->with('flash', [
             'class' => 'danger',
             'message' => "Client $name deleted"
         ]);

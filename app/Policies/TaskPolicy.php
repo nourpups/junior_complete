@@ -17,14 +17,6 @@ class TaskPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Task $task): bool
-    {
-       return $user->hasPermissionTo('show_task') && $task->user_id == $user->id;
-    }
-
-    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Status;
+use App\Events\PinUserToProject;
 use App\Models\Client;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
@@ -22,7 +23,7 @@ class ProjectController extends Controller
     */
    public function index()
    {
-      session(['previous_page' => url()->full()]);
+      session(['index_page' => url()->full()]);
 
       $projects = auth()->user()->projects()->with(['users', 'client'])
             ->latest()->paginate(12);
@@ -55,7 +56,9 @@ class ProjectController extends Controller
       $project = Project::create($data + ['status' => Status::IN_PROGRESS]);
       $project->users()->attach($data['user_ids']);
 
-      return redirect(session('previous_page'))->with('flash', [
+      event(new PinUserToProject($project->users()->get(), $project));
+
+      return redirect(session('index_page'))->with('flash', [
             'class'   => 'success',
             'message' => "Project «$project[title]» was created successfully",
       ]);
@@ -79,10 +82,24 @@ class ProjectController extends Controller
    {
       $data = $request->validated();
 
+      $oldIds = $project->users->pluck('id')->toArray();
+
+      foreach ($data['user_ids'] as $id)
+      {
+         if(!in_array($id, $oldIds)) {
+            $newAssignedIds[] = $id;
+         }
+      }
+
+      if (!empty($newAssignedIds)) {
+         $newAssignedUsers = User::whereIn('id', $newAssignedIds)->get();
+         event(new PinUserToProject($newAssignedUsers, $project));
+      }
+
       $project->update($data);
       $project->users()->sync($data['user_ids']);
 
-      return redirect(session('previous_page'))->with('flash', [
+      return redirect(session('index_page'))->with('flash', [
             'class'   => 'success',
             'message' => "Project «$project[title]» was updated successfully",
       ]);
@@ -97,7 +114,7 @@ class ProjectController extends Controller
       $project->tasks()->delete();
       $project->delete();
 
-      return redirect(session('previous_page'))->with('flash', [
+      return redirect(session('index_page'))->with('flash', [
             'class'   => 'danger',
             'message' => "Project «$project[title]» was deleted",
       ]);
