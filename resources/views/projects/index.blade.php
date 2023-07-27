@@ -25,7 +25,8 @@
                 <td class="d-none d-sm-table-cell"> {{$project->description}} </td>
                 <td class="text-muted">
                     @foreach($project->users as $user)
-                        {{ $user->name  }}
+                       <a href="" class="btn btn-link text-start">{{ $user->name }}</a>
+                       <br>
                     @endforeach
                 </td>
                 <td class="text-muted"> {{ $project->client->name  }} </td>

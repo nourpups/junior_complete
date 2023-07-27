@@ -18,13 +18,16 @@
         <select class="js-select2 form-select @error('permission_names') is-invalid @enderror " name="permission_names[]" style="width: 100%;" data-container="#modal-block-select2" data-placeholder="Choose many.." multiple>
             <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
             @foreach($permissions as $permission)
-                <option value="{{$permission->name}} {{ in_array($permission->name, old('permission_names')) ? 'selected' : '' }}"
-                    @foreach($rolePermissions as $rolePermission)
-                        {{$rolePermission->id == $permission->id ? 'disabled' : ''}}
-                    @endforeach
+                <option value="{{$permission->name}}"
+                    @if(old('permission_names'))
+                          @selected(in_array($permission->name, old('permission_names')))
+                    @endif
+                       
+                    @disabled($rolePermissions->contains($permission))
                 >
                 {{$permission->name}}
                 </option>
+
             @endforeach
         </select>
         @error('permission_names')

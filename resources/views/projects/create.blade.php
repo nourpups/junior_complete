@@ -37,7 +37,7 @@
             @foreach($users as $user)
                 <option value="{{$user->id}}"
                     @if(old('user_ids'))
-                        {{ in_array($user->id, old('user_ids')) ? 'selected' : '' }}
+                        @selected(in_array($user->id, old('user_ids')))
                     @endif
                 >
                 {{$user->name}}

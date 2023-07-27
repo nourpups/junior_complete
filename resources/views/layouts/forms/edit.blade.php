@@ -10,7 +10,7 @@
             @method('PUT')
 
             <div class="form-header mb-3">
-                <a href="{{session('previous_page')}}" class="btn btn-secondary"> <i class="fa fa-arrow-left"></i> Back </a>
+                <a href="{{session('index_page')}}" class="btn btn-secondary"> <i class="fa fa-arrow-left"></i> Back </a>
                 <h1 class="d-inline-block float-end">
                     <span class="text-muted">Edit</span>
                     {{ $title}}

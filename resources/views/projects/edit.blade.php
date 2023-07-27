@@ -36,10 +36,12 @@
         <select class="js-select2 form-select @error('user_ids') is-invalid @enderror " name="user_ids[]" style="width: 100%;" data-container="#modal-block-select2" data-placeholder="Choose many.." multiple>
             <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
             @foreach($users as $user)
-                <option value="{{old('user_ids', $user->id)}}"
-                    @foreach($project->users as $projectUser)
-                        {{$user->id == $projectUser->id ? 'disabled' : ''}}
-                    @endforeach
+                <option value="{{$user->id}}"
+                    @if(old('user_ids'))
+                        @selected(in_array($user->id, old('user_ids')))
+                    @else
+                        @selected($project->users->contains($user))
+                    @endif
                 >
                 {{$user->name}}
                 </option>

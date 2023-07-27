@@ -11,6 +11,7 @@
 
     <script>Codebase.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-maxlength', 'jq-select2', 'jq-rangeslider', 'jq-masked-inputs', 'jq-pw-strength']);</script>
 @endsection
+
 @section('form')
     <div class="mb-4">
         <label class="form-label">Title</label>
