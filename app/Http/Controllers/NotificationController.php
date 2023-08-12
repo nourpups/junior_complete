@@ -9,7 +9,7 @@ use Illuminate\Notifications\DatabaseNotification;
 class NotificationController extends Controller
 {
 
-   public function index(CheckAdminPinnedAction $checkAdminPinnedAction)
+   public function index()
    {
       $user = auth()->user();
       $notifications = $user->notifications;

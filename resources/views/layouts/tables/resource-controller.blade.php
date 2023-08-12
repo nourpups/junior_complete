@@ -10,8 +10,8 @@
                 <h3 class="block-title">
                     {{ str($entity)->ucfirst() }} Table
                 </h3>
-                @can('create_'. str($entity)->singular()) {{-- e.g create_project, create_task --}}
-                    <a href="{{ route($entity.'.create') }}" {{-- e.g projects.create, tasks.create --}}
+                @can('create_'. str($entity)->singular())  {{-- e.g create_project, create_task --}}
+                    <a href="{{ route($entity.'.create') }}" {{-- e.g projects.create, tasks.create  --}}
                        class="btn btn-alt-primary d-inline-block">
                         <i class="fa fa-plus"></i>
                         Create {{ str($entity)->ucfirst()->singular() }}

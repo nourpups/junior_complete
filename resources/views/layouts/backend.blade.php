@@ -28,14 +28,8 @@
    <link rel="stylesheet" id="css-main" href="{{ asset('css/codebase.min.css') }}">
    @yield('css')
    @vite(['resources/sass/main.scss'])
-   <script src="{{asset('js/codebase.app.min.js')}}"></script>
+
    <script src="{{asset('js/lib/jquery.min.js')}}"></script>
-   @yield('js')
-   <script>
-      $(document).ready(function () {
-         $('.alert').fadeIn().delay(5000).fadeOut();
-      });
-   </script>
 </head>
 
 <body>
@@ -84,40 +78,7 @@
     'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
 -->
 <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
-   <!-- Side Overlay-->
-   <aside id="side-overlay">
-      <!-- Side Header -->
-      <div class="content-header">
-         <!-- User Avatar -->
-         <a class="img-link me-2" href="javascript:void(0)">
-            <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="">
-         </a>
-         <!-- END User Avatar -->
 
-         <!-- User Info -->
-         <a class="link-fx text-body-color-dark fw-semibold fs-sm" href="javascript:void(0)">
-            {{auth()->user()->name}}
-         </a>
-         <!-- END User Info -->
-
-         <!-- Close Side Overlay -->
-         <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-         <button type="button" class="btn btn-sm btn-alt-danger ms-auto" data-toggle="layout" data-action="side_overlay_close">
-            <i class="fa fa-fw fa-times"></i>
-         </button>
-         <!-- END Close Side Overlay -->
-      </div>
-      <!-- END Side Header -->
-
-      <!-- Side Content -->
-      <div class="content-side">
-         <p>
-            Content..
-         </p>
-      </div>
-      <!-- END Side Content -->
-   </aside>
-   <!-- END Side Overlay -->
 
    <!-- Sidebar -->
    <!--
@@ -169,20 +130,20 @@
             <div class="content-side content-side-user px-0 py-0">
                <!-- Visible only in mini mode -->
                <div class="smini-visible-block animated fadeIn px-3">
-                  <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="">
+                  <img class="img-avatar img-avatar32" src="{{ auth()->user()->getFirstMediaUrl('avatar') }}" alt="">
                </div>
                <!-- END Visible only in mini mode -->
 
                <!-- Visible only in normal mode -->
                <div class="smini-hidden text-center mx-auto">
                   <a class="img-link" href="javascript:void(0)">
-                     <img class="img-avatar" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="">
+                     <img class="img-avatar" src="{{ auth()->user()->getFirstMediaUrl('avatar') }}" alt="">
                   </a>
                   <ul class="list-inline mt-3 mb-0">
                      <li class="list-inline-item">
                         <a class="link-fx text-dual fs-sm fw-semibold text-uppercase" href="javascript:void(0)">{{auth()->user()->name}}</a>
                      </li>
-                     <li class="list-inline-item">
+                      <li class="list-inline-item">
                         <a class="link-fx text-dual" onclick="document.getElementById('logout-form').submit()">
                            <i class="fa fa-sign-out-alt"></i>
                         </a>
@@ -246,6 +207,17 @@
                         </a>
                      </li>
                   @endcan
+                     <li class="nav-main-item ribbon ribbon-primary">
+                        @if($unreadNotificationsCount)
+                           <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 95%">
+                            {{$unreadNotificationsCount}}
+                          </span>
+                        @endif
+                        <a class="nav-main-link{{ request()->routeIs('notifications.*') ? ' active' : '' }}" href="{{route('notifications.index')}}">
+                           <i class="nav-main-link-icon fas fa-bell"></i>
+                           <span class="nav-main-link-name">Notifications</span>
+                        </a>
+                     </li>
                </ul>
             </div>
             <!-- END Side Navigation -->
@@ -298,6 +270,12 @@
                         </h5>
                      </div>
                      <div class="p-2">
+                        <a href="{{route('profiles.edit', auth()->user())}}" class="dropdown-item d-flex align-items-center justify-content-between space-x-1" style="cursor: pointer">
+                           <span>Edit Profile</span>
+                           <i class="fa fa-fw fa-pencil-alt opacity-25"></i>
+                        </a>
+                     </div>
+                     <div class="p-2">
                         <form id="logout-form" action="{{route('logout')}}" method="POST">@csrf</form>
                         <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" style="cursor: pointer" onclick="document.getElementById('logout-form').submit()">
                            <span>Sign Out</span>
@@ -308,12 +286,6 @@
                </div>
          @endauth
 
-         <!-- Toggle Side Overlay -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-            <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="layout" data-action="side_overlay_toggle">
-               <i class="fa fa-fw fa-stream"></i>
-            </button>
-            <!-- END Toggle Side Overlay -->
          </div>
          <!-- END Right Section -->
 
@@ -374,8 +346,7 @@
                <a class="fw-semibold" href="https://1.envato.market/ydb" target="_blank">pixelcave</a>
             </div>
             <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
-               <a class="fw-semibold" href="https://1.envato.market/95j" target="_blank">Codebase</a>
-               &copy;
+               <a class="fw-semibold" href="https://1.envato.market/95j" target="_blank">Codebase</a> &copy;
                <span data-toggle="year-copy"></span>
             </div>
          </div>
@@ -384,6 +355,20 @@
    <!-- END Footer -->
 </div>
 <!-- END Page Container -->
+<script src="{{asset('js/codebase.app.min.js')}}"></script>
+
+<script>
+   $(document).ready(function () {
+      $('.alert').fadeIn().delay(5000).fadeOut();
+   });
+</script>
+
+<script>
+
+</script>
+
+@yield('js')
+
 </body>
 
 </html>
