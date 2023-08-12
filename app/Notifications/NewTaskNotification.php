@@ -36,7 +36,14 @@ class NewTaskNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-              'task' => $this->task
+              'task' => [
+                    'title' => $this->task->title,
+                    'project' => $this->task->project->title,
+              ],
+              'user' => [
+//                    'id' => $this->task->user->id,
+                    'name' => $this->task->user->name,
+              ],
         ];
     }
 }

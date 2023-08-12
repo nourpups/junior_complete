@@ -16,9 +16,12 @@ class SendNewTaskNotification
      */
     public function handle(PinTaskToUser $event): void
     {
-       $event->user->notify(new NewTaskNotification($event->task));
+       $task = $event->task;
+       $admins = User::role('Super Admin')->when($task->user->hasRole('Super Admin'), function ($query) {
+          return $query->where('id', '!=', auth()->id());
+       })->get();
 
-       $superAdmins = User::role('Super Admin')->get();
-       Notification::send($superAdmins, new NewTaskNotification($event->task));
+       $event->user->notify(new NewTaskNotification($task));
+       Notification::send($admins, new NewTaskNotification($task));
     }
 }

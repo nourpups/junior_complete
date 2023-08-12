@@ -14,7 +14,7 @@ class NewProjectNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(public $project)
+    public function __construct(public $project, public $isAdminPinned = false)
     {
         //
     }
@@ -31,8 +31,14 @@ class NewProjectNotification extends Notification
 
     public function toArray(object $notifiable): array
     {
+      $userDetails = $this->project->users->map(fn($user) => [
+//            'id' => $user->id,
+            'name' => $user->name,
+      ]);
         return [
-            'project' => $this->project
+            'project' => $this->project->title,
+            'users' => $userDetails,
+            'is_admin_pinned' => $this->isAdminPinned
         ];
     }
 }

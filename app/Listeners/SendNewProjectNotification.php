@@ -17,10 +17,15 @@ class SendNewProjectNotification
     */
    public function handle(PinUserToProject $event): void
    {
+      $project = $event->project;
       $admins = User::role('Super Admin')->get();
-      Notification::send($admins, new NewProjectNotification($event->project));
 
-      Notification::send($event->users, new NewProjectNotification($event->project));
+      $isAdminPinned = $project->users->contains(function ($user) {
+         return $user->hasRole('Super Admin');
+      });
+
+      Notification::send($event->users, new NewProjectNotification($project, $isAdminPinned));
+      Notification::send($admins, new NewProjectNotification($project));
    }
 
 }
