@@ -33,6 +33,10 @@
 - Email: user@user.com
 - Password: user
 
+## Registration Note
+For successful registration you will need to confirm your email. 
+Set up your MAIL settings in .env or ignore registration
+
 ## Final! Running on local server
 
 `npm install && npm run dev`
