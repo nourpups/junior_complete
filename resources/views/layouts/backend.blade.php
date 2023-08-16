@@ -244,12 +244,6 @@
             <button class="btn btn-sm btn-alt-secondary text-dual" data-toggle="layout" data-action="dark_mode_toggle">
                <i class="fa fa-burn"></i>
             </button>
-            <!-- Open Search Section -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-            <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="layout" data-action="header_search_on">
-               <i class="fa fa-fw fa-search"></i>
-            </button>
-            <!-- END Open Search Section -->
          </div>
          <!-- END Left Section -->
 

@@ -7,6 +7,8 @@
 
 `composer install`
 
+#### rename .env.example to .env
+
 `php artisan key:generate`
 
 ## Set database settings
