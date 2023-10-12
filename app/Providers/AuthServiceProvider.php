@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Http\Controllers\PermissionController;
 use App\Policies\RolePolicy;
+use App\Policies\PermissionPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Permission;
@@ -18,7 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
           Role::class => RolePolicy::class,
-          Permission::class => PermissionController::class,
+          Permission::class => PermissionPolicy::class,
           // authorizing these policies manually because models that auto-discovered by $this->registerPolicies()
           // the policies must be in a Policies directory at or above the directory that contains your models
           // Link: https://laravel.com/docs/10.x/authorization#registering-policies:~:text=Specifically%2C%20the%20policies,contains%20your%20models
