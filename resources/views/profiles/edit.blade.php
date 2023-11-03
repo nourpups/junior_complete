@@ -9,7 +9,7 @@
          @method('PUT')
 
          <div class="form-header mb-3">
-            <a href="{{session('index_page')}}" class="btn btn-secondary">
+            <a href="{{session('index_page', route('dashboard'))}}" class="btn btn-secondary">
                <i class="fa fa-arrow-left"></i>
                Back
             </a>
@@ -37,13 +37,13 @@
             <div class="w-75">
                <label class="form-label">Avatar</label>
                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+               @error('image')
+               <div class="invalid-feedback animated fadeIn">{{ $message }}</div>
+               @enderror
             </div>
             <div class="text-center w-25">
                <img class="img-avatar img-avatar96" src="{{$user->getFirstMediaUrl('avatar')}}" alt="">
             </div>
-            @error('image')
-            <div class="invalid-feedback animated fadeIn">{{ $message }}</div>
-            @enderror
          </div>
          <button class="btn btn-primary w-25">
             <i class="fa fa-pen"></i>

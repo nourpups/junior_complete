@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -20,19 +21,22 @@ class ProfileController extends Controller
 
     public function updateProfile(UpdateProfileDetailsRequest $request, User $user)
     {
-       $data = $request->validated();
+        $data = $request->validated();
+        $avatar = $data['image'];
 
-          if($request->hasFile('image')) {
-          $user->addMedia($data['image'])->toMediaCollection('avatar');
-       }
+        if($request->hasFile('image')) {
+            $user->addMedia($avatar)
+            ->usingFileName(Str::random(21).$avatar->extension())
+            ->toMediaCollection('avatar');
+        }
 
-       unset($data['image']);
-       $user->update($data);
+        unset($avatar);
+        $user->update($data);
 
-       return to_route('profiles.edit', $user)->with('flash', [
-             'class' => 'success',
-             'message' => 'Profile updated successfully'
-       ]);
+        return to_route('profiles.edit', $user)->with('flash', [
+                'class' => 'success',
+                'message' => 'Profile updated successfully'
+        ]);
     }
 
     public function updatePassword(UpdateProfilePasswordRequest $request, User $user)

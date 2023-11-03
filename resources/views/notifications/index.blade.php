@@ -19,12 +19,13 @@
                </thead>
                <tbody>
                @forelse ($notifications as $notification)
+
                   <tr @class(['opacity-50' => $unreadNotifications->doesntContain($notification)])>
                      <td class="fw-semibold">
                         @if(class_basename($notification->type) == 'NewProjectNotification')
                               @include('notifications.project', [
                                  'users' => join(', ', array_map(fn($user) => $user['name'], $notification->data['users']))
-                                 ]) {{--output: Jhon, Downey, Ray --}}
+                                 ]) {{--output: "Jhon, Downey, Ray" --}}
                         @endif
                         @if(class_basename($notification->type) == 'NewTaskNotification')
                               @include('notifications.task')

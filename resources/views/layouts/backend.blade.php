@@ -25,9 +25,10 @@
    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('media/favicons/apple-touch-icon-180x180.png') }}">
 
    <!-- Modules -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    <link rel="stylesheet" id="css-main" href="{{ asset('css/codebase.min.css') }}">
    @yield('css')
-   @vite(['resources/sass/main.scss'])
+   {{-- @vite(['resources/sass/main.scss']) --}}
 
    <script src="{{asset('js/lib/jquery.min.js')}}"></script>
 </head>

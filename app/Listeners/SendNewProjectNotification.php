@@ -18,6 +18,8 @@ class SendNewProjectNotification
    public function handle(PinUserToProject $event): void
    {
       $project = $event->project;
+      $project->load('users');
+
       $admins = User::role('Super Admin')->get();
 
       $isAdminPinned = $project->users->contains(function ($user) {

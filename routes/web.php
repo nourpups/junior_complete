@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-Route::group(['middleware' => ['auth', 'verified']], function (){
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::view('/', 'dashboard')->name('dashboard');
 
     Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');

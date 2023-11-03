@@ -7,9 +7,14 @@
 
 `composer install`
 
-#### rename .env.example to .env
+#### Copy .env.example to .env
 
 `php artisan key:generate`
+
+## Make Storage files accessible
+.env: `FILESYSTEM_DISK=public`
+
+`php artisan storage:link`
 
 ## Set database settings
 
